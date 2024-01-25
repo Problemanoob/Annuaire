@@ -1,0 +1,346 @@
+.body{
+     width: 100%;
+}
+.notfound{
+     display: none;
+}
+#search{
+     padding: 5px;
+     border:2px solid #e0e0e0;
+     width: 95%;
+     font-family: sans-serif;
+}
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin: 0 auto;
+}
+.styled-table thead tr {
+    background-color: #0f183b;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #0f183b;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+.styled-table tbody tr:hover{
+     background-color: #cccccc;
+}
+
+td a{
+     text-decoration: none;
+}
+td a:link, visited, hover, active{
+     color: black;
+}
+
+td img{
+  display: none
+}
+
+.logoimage{
+     width: 150px;
+     height: auto; 
+     padding-left: 23%;
+     vertical-align: middle; 
+}
+.columnone {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  height: 100px;
+  vertical-align: middle;
+  
+}
+.columntwo {
+  float: left;
+  width: 60%;
+  padding: 10px;
+  height: 100px;
+  vertical-align: middle;
+  
+}
+.columnthree {
+  float: left;
+  width: auto;
+  padding: 10px;
+  height: 100px;
+  vertical-align: middle;
+  
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#column-content {
+  
+  position: relative;
+}
+@media screen and (max-width: 600px) {
+  .column {
+    width: 85%;
+  }
+}
+
+.search-criteria {
+  display: none
+}
+
+.hidden-fields {
+  display: none
+}
+
+
+/* Style the button that is used to open and close the collapsible content */
+.adv-search-collapsible {
+  margin-top: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  width: 30%;
+  border: none;
+  text-align: center;
+  outline: none;
+  background-color:#ae2217; 
+  font-weight:bold;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .adv-search-collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.adv-search-content {
+
+  max-height: 0;
+  width: 100%;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+  display: block;
+}
+
+.adv-search-collapsible:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.adv-input-row {
+  width: 100%;
+  margin: auto;  
+  padding-top: 1%;
+  padding-left: 1%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.adv-search-input {
+  width: 70%;
+  margin: auto;
+}
+
+.adv-search-footer {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+}
+
+.adv-search-footer {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.main-content {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+}
+
+.search-container {
+  width: 60%;
+  margin: auto;
+
+}
+
+.result-container {
+  width: 100%;
+
+}
+
+#clean_up {
+  margin-top: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  background-color:#ae2217; 
+  font-weight:bold;
+}
+
+#clean_up:disabled {
+  margin-top: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  background-color: rgb(174, 174, 174); 
+  font-weight:bold;
+  cursor: not-allowed;
+}
+
+#search:disabled {
+  cursor: not-allowed;
+}
+
+#autocomplete-result {
+  border: 1px dotted #ccc;
+  padding: 3px;
+  position: absolute;
+  background-color: white;
+  cursor: pointer;
+}
+#autocomplete-result ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#autocomplete-result ul li {
+  padding: 5px 0;
+}
+#autocomplete-result ul li:hover {
+  background: #87cbf8;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #ae2217;
+  color: white;
+}
+adv-search-collapsible
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #ae2217;
+  color: white;
+}
+.redirect {
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  width: 30%;
+  border: none;
+  text-align: center;
+  outline: none;
+  background-color:#ae2217;
+}
+.asso{
+  color: white;
+  text-align: justify;
+  margin-top: 50px;
+  margin-left: 60px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 50px;
+  width: 70%;
+}
+.deconnexion-btn {
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
