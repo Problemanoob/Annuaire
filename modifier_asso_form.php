@@ -1,14 +1,32 @@
 <?php
+// Démarrage de la session
 session_start();
+
+// Inclusion de l'autoloader de Composer
+require __DIR__ . '/vendor/autoload.php';
+
+// Chemin vers le fichier .env (situé en dehors du répertoire web)
+$dotenvFile = __DIR__ . DIRECTORY_SEPARATOR . '\..\..\private\.env';
+
+// Chargement des variables d'environnement à partir du fichier .env
+if (file_exists($dotenvFile)) {
+    $lines = file($dotenvFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    foreach ($lines as $line) {
+        list($key, $value) = explode('=', $line, 2);
+        $_ENV[$key] = $value;
+        $_SERVER[$key] = $value;
+    }
+}
 
 if (!isset($_SESSION["email"])) {
     header("Location: connexion_admin.php");
     exit();
 }
-$hostname = "10.3.20.169";
-$user = "admin";
-$pwd = "Za.m-P8EXNooX9)W";
-$database = "annuaire";
+$hostname = $_ENV['HOSTNAME'];
+$user = $_ENV['DB_SUPER_USER'];
+$pwd = $_ENV['DB_PWD_SUPUSER'];
+$database = $_ENV['DATABASE'];
 $connexion = mysqli_connect($hostname, $user, $pwd, $database);
 mysqli_set_charset($connexion, "utf8");
 

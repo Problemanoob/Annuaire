@@ -50,7 +50,7 @@ INSERT INTO `association` (`id`, `nom`, `acronyme`, `num_tel`, `num_fax`, `email
 (4, 'Comité des Oeuves Sociales', 'COS', '05 62 67 44 00', '05 62 67 44 01', 'cos@cg32.fr', 'http://cos'),
 (5, 'Foyer Ludovic Lapeyrère', 'FLL', '05 62 63 19 44', '/', '/', '/'),
 (6, 'GIP GERS SOLIDAIRE', 'GIPGS', '/', '/', '/', 'https://twitter.com/GersSolidaire'),
-(7, 'Maison Départementale de l\'Enfance et de la Famille', 'MDEF', '05 62 63 37 33', '05 62 63 06 81', '/', '/'),
+(7, 'Maison Départementale de l'Enfance et de la Famille', 'MDEF', '05 62 63 37 33', '05 62 63 06 81', '/', '/'),
 (8, 'Maison Départementale des Personnes Handicapées du Gers', 'MDPH 32', '05 62 61 76 76', '05 62 61 76 67', 'mdph32@mdph32.fr', 'https://mdph32.gers.fr/'),
 (9, 'Oxygers', '/', '05 62 98 66 34', '05 62 40 10 97', 'contact@oxygers.asso.fr', 'http://www.oxygers.asso.fr'),
 (10, 'Paierie Départementale', '/', '05 62 05 63 03', '/', '/', '/'),

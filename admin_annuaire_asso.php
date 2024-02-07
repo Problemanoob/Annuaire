@@ -1,41 +1,74 @@
 <?php
+// Démarrage de la session
 session_start();
 
+// Inclusion de l'autoloader de Composer
+require __DIR__ . '/vendor/autoload.php';
+
+// Chemin vers le fichier .env (situé en dehors du répertoire web)
+$dotenvFile = __DIR__ . DIRECTORY_SEPARATOR . '\..\..\private\.env';
+
+// Chargement des variables d'environnement à partir du fichier .env
+if (file_exists($dotenvFile)) {
+    $lines = file($dotenvFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    foreach ($lines as $line) {
+        list($key, $value) = explode('=', $line, 2);
+        $_ENV[$key] = $value;
+        $_SERVER[$key] = $value;
+    }
+}
+
+// Vérification de la session email, redirection si non connecté
 if (!isset($_SESSION["email"])) {
     header("Location: connexion_admin.php");
     exit();
 }
+
+// Fonction de déconnexion
 function deconnexion() {
     session_unset();
     session_destroy();
     header("Location: annuaire_asso.php");
     exit();
 }
+
+// Traitement de la déconnexion si le formulaire est soumis
 if (isset($_POST["deconnexion"])) {
     deconnexion();
 }
-/*************Connexion BDD */
 
-$hostname = "10.3.20.169";
-$user = "admin";
-$pwd = "Za.m-P8EXNooX9)W";
-$database = "annuaire";
+// Vérification de la session pour déterminer si l'utilisateur a le droit de créer un compte
+$emailUCONORT = "UCONORT@gers.fr";
+$showCreationButton = ($_SESSION["email"] === $emailUCONORT);
+
+// Connexion à la base de données avec mysqli
+$hostname = $_ENV['HOSTNAME'];
+$user = $_ENV['DB_SUPER_USER'];
+$pwd = $_ENV['DB_PWD_SUPUSER'];
+$database = $_ENV['DATABASE'];
 $connexion = mysqli_connect($hostname, $user, $pwd, $database);
 mysqli_set_charset($connexion, "utf8");
+
+// Connexion à la base de données avec PDO
 try {
     $mysqlConnection = new PDO('mysql:host=' . $hostname . ';dbname=' . $database, $user, $pwd);
 } catch (PDOException $error) {
     echo 'Échec de la connexion : ' . $error->getMessage();
 }
 
-/*************Connexion BDD */
+// HTML et affichage des boutons en fonction des autorisations
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 <form method="post" action="">
     <input type="submit" name="deconnexion" value="Déconnexion" class="deconnexion-btn">
 </form>
 <?php
-echo "<a class=\"redirect\" href=\"ajout_asso.php\">Ajouter</a>";
+if ($showCreationButton) {
+    echo "<a href='creation_compte.php' class='creation-btn'>Création de compte</a>";
+}
+echo "<br>";
+echo "<a class='redirect' href='profil.php'>Profil</a>";
 echo "<h2>Administration de l'annuaire des associations</h2>";
 echo "<form method='post' action='admin_annuaire_asso.php'>";
 echo "<table border='1'>";
@@ -45,13 +78,15 @@ echo "<th>Nom</th>";
 echo "<th>Acronyme</th>";
 echo "<th>Numéro de téléphone</th>";
 echo "<th>Numéro de fax</th>";
-echo "<th>Email</th>";
+echo "<th>Courriel</th>";
 echo "<th>Site Internet</th>";
 echo "</tr>";
 
+// Récupération des données depuis la base de données
 $sqlQuery = "SELECT * FROM association;";
 $result = $connexion->query($sqlQuery);
 
+// Affichage des données dans un tableau
 while ($row = $result->fetch_assoc()) {
     echo "<tr>";
     echo "<td><input type='checkbox' name='delete_ids[]' value='" . $row['id'] . "'></td>";
@@ -65,10 +100,12 @@ while ($row = $result->fetch_assoc()) {
     echo "</tr>";
 }
 
+// Fin du tableau et bouton de suppression
 echo "</table>";
 echo "<input type='submit' name='delete' value='Supprimer sélectionnés'>";
 echo "</form>";
 
+// Suppression des enregistrements sélectionnés
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete'])) {
     $deleteIds = isset($_POST['delete_ids']) ? $_POST['delete_ids'] : array();
 
