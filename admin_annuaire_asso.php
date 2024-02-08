@@ -6,7 +6,7 @@ session_start();
 require __DIR__ . '/vendor/autoload.php';
 
 // Chemin vers le fichier .env (situé en dehors du répertoire web)
-$dotenvFile = __DIR__ . DIRECTORY_SEPARATOR . '\..\..\private\.env';
+$dotenvFile = __DIR__ . DIRECTORY_SEPARATOR . '../../private/.env';
 
 // Chargement des variables d'environnement à partir du fichier .env
 if (file_exists($dotenvFile)) {
@@ -39,24 +39,32 @@ if (isset($_POST["deconnexion"])) {
 }
 
 // Vérification de la session pour déterminer si l'utilisateur a le droit de créer un compte
-$emailUCONORT = "UCONORT@gers.fr";
-$showCreationButton = ($_SESSION["email"] === $emailUCONORT);
+$emailAdmin = "SJOLY@gers.fr";
+$emailAdmin2 = "GROBILLIARD@gers.fr";
+$showCreationButton = ($_SESSION["email"] === $emailAdmin || $_SESSION["email"] === $emailAdmin2);
 
 // Connexion à la base de données avec mysqli
 $hostname = $_ENV['HOSTNAME'];
 $user = $_ENV['DB_SUPER_USER'];
 $pwd = $_ENV['DB_PWD_SUPUSER'];
 $database = $_ENV['DATABASE'];
+
+// Connexion à la base de données avec mysqli
 $connexion = mysqli_connect($hostname, $user, $pwd, $database);
+
+// Vérification de la connexion
+if (!$connexion) {
+    die("La connexion a échoué : " . mysqli_connect_error());
+}
+
+// Configuration de l'encodage des caractères
 mysqli_set_charset($connexion, "utf8");
 
-// Connexion à la base de données avec PDO
 try {
     $mysqlConnection = new PDO('mysql:host=' . $hostname . ';dbname=' . $database, $user, $pwd);
 } catch (PDOException $error) {
     echo 'Échec de la connexion : ' . $error->getMessage();
 }
-
 // HTML et affichage des boutons en fonction des autorisations
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
@@ -65,10 +73,12 @@ try {
 </form>
 <?php
 if ($showCreationButton) {
-    echo "<a href='creation_compte.php' class='creation-btn'>Création de compte</a>";
+    echo "<a href='inscription_admin.php' class='creation-btn'>Création de compte</a>";
 }
 echo "<br>";
 echo "<a class='redirect' href='profil.php'>Profil</a>";
+echo "<br>";
+echo "<a class='redirect' href='ajout_asso.php'>Ajouter une association</a>";
 echo "<h2>Administration de l'annuaire des associations</h2>";
 echo "<form method='post' action='admin_annuaire_asso.php'>";
 echo "<table border='1'>";

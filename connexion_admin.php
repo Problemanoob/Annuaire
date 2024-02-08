@@ -6,7 +6,7 @@ session_start();
 require __DIR__ . '/vendor/autoload.php';
 
 // Chemin vers le fichier .env
-$dotenvFile = __DIR__ . '\..\..\private\.env';
+$dotenvFile = __DIR__ . DIRECTORY_SEPARATOR .'../../private/.env';
 
 // Chargement des variables d'environnement à partir du fichier .env
 if (file_exists($dotenvFile)) {
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mot_de_passe = mysqli_real_escape_string($connexion, $_POST["mot_de_passe"]);
 
     // Requête SQL pour récupérer l'utilisateur avec l'email fourni
-    $sqlQuery = "SELECT * FROM utilisateur WHERE email = '$email'";
+    $sqlQuery = "SELECT * FROM utilisateur WHERE courriel = '$email'";
     $result = mysqli_query($connexion, $sqlQuery);
 
     // Vérification du résultat de la requête

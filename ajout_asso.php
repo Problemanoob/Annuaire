@@ -6,7 +6,7 @@ session_start();
 require __DIR__ . '/vendor/autoload.php';
 
 // Chemin vers le fichier .env
-$dotenvFile = __DIR__ . '\..\..\private\.env';
+$dotenvFile = __DIR__ . DIRECTORY_SEPARATOR . '../../private/.env';
 
 // Chargement des variables d'environnement à partir du fichier .env
 if (file_exists($dotenvFile)) {
